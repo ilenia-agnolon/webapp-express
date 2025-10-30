@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+//connessione al database
+const db = require("./data/db");
+
 //middleware static di express
 app.use(express.static("public"));
 
