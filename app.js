@@ -11,6 +11,16 @@ const errorServer = require("./middlewares/errorServer");
 const notFound = require("./middlewares/notFound");
 const imagePath = require("./middlewares/imagePath");
 
+//importo middleware  CORS
+const cors = require("cors");
+
+// middleware per il CORS
+app.use(
+  cors({
+    origin: process.env.FE_APP,
+  })
+);
+
 //middleware static di express
 app.use(express.static("public"));
 
