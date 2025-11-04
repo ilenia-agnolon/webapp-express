@@ -5,9 +5,17 @@ const db = require("../data/db");
 function index(req, res) {
   const sql = "SELECT * FROM movies";
 
+  //aggiungo la connessione per la richiesta
   db.query(sql, (err, result) => {
     if (err) return res.status(500).json({ error: "Database error" });
-    return res.json(result);
+
+    // compongo l'URL assoluto dell'immagine
+    const movies = result.map((movie) => ({
+      ...movie,
+      image: req.imagePath + movie.image,
+    }));
+
+    return res.json(movies);
   });
 }
 
