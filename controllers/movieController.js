@@ -61,4 +61,26 @@ function show(req, res) {
   });
 }
 
-module.exports = { index, show };
+//STORE REVIEW
+function storeReview(req, res) {
+  // 1) leggo l'id del film dalla rotta
+  const id = req.params.id;
+
+  // 2) leggo i dati dal body JSON
+  const { name, text, vote } = req.body;
+
+  //3) query per la chiamata al DB
+  const sql =
+    "INSERT INTO `reviews` (`name`, `vote`, `text`, `movie_id`) VALUES (?,?,?,?)";
+
+  // 4) eseguo la query
+  db.query(sql, [name, vote, text, id], (err, result) => {
+    // se c'è errore server DB
+    if (err) return res.status(500).json({ error: "Database query failed" });
+    // se va tutto bene
+    res.status(201);
+    res.json({ id: result.insertId, message: "Review added" });
+  });
+}
+
+module.exports = { index, show, storeReview };

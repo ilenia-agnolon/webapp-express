@@ -3,10 +3,13 @@ const movieController = require("../controllers/movieController");
 
 const router = express.Router();
 
-// /api/movies -> lista film
+// index
 router.get("/", movieController.index);
 
-// /api/movies/:id -> placeholder (verrà implementato dopo)
+// show
 router.get("/:id", movieController.show);
+
+//store reviews
+router.post("/:id/reviews", movieController.storeReview);
 
 module.exports = router;
